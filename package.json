@@ -1,0 +1,22 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "前端实验室-经典案例集",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iFiring/Front-End-Laboratory.git"
+  },
+  "author": "iFiring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iFiring/Front-End-Laboratory/issues"
+  },
+  "homepage": "https://github.com/iFiring/Front-End-Laboratory#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
