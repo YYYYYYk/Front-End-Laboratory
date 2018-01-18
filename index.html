@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-<meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=no" /> 
-<meta name="description" content="" /> 
-<meta name="keywords" content="" /> 
-<meta name="author" content="iFiring" /> 
 <head>
-    <meta charset="UTF-8">
-    <title>前端实验室</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=no" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="iFiring" />
+  <meta charset="UTF-8">
+  <title>前端实验室</title>
+
+  <link href="src/styles/usage/greeter.css" rel="stylesheet" />
+  <link href="src/styles/app.css" rel="stylesheet" />
+  <link href="src/styles/libs/prism.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <style>
+    html {
+      font-size: 16px;
+    }
+    #nav-ul li {
+      margin: 0.8rem 0;
+    }
+    #nav-ul li a{
+      color: #5cb85c;
+      text-decoration: none;
+    }
+  </style>
 </head>
 
-<link href="src/styles/usage/greeter.css" rel="stylesheet" /> 
-
-	<!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-<style>
-  html {
-    font-size: 16px;
-  }
-  #nav-ul li {
-    margin: 0.8rem 0;
-  }
-  #nav-ul li a{
-    color: #5cb85c;
-    text-decoration: none;
-  }
-</style>
 <body>
     <header>
       <h1>Front End Laboratory</h1>
@@ -38,7 +40,7 @@
 	<nav class="" id="nav">
         <ul class="nav" id="nav-ul">
           <li class="active">
-            <a href="#summary">梗概</a>
+            <a href="./docs/">梗概</a>
           </li>
           <li>
             <a href="#html">HTML</a>
@@ -64,7 +66,7 @@
         </ul>
       </nav>
 	  
-	<section class="">
+	<section id="content">
 	
 	</section>
 	
@@ -72,7 +74,23 @@
 	
 	</footer>
 	
-	<script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script> 
-	<script src="https://cdn.bootcss.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> 
+    <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.3.12/marked.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.9.0/prism.min.js"></script>
+    <script>
+      $('#nav-ul').on('click',function () {
+          $.get(
+              "./docs/es6.md",function (data) {
+                  $('#content').html(marked(data));
+
+                  $('#content code').map(function() {
+                      Prism.highlightElement(this);
+                  });
+              }
+          );
+      });
+
+    </script>
 </body>
 </html>
