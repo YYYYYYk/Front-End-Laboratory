@@ -1,4 +1,4 @@
-# Promise 对象
+# ECMAScript6
 
 ## Promise 的含义
 
