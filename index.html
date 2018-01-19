@@ -9,79 +9,91 @@
   <meta charset="UTF-8">
   <title>前端实验室</title>
 
-  <link href="src/styles/usage/greeter.css" rel="stylesheet" />
+  <link href="src/styles/libs/bootstrap.min.css" rel="stylesheet" />
   <link href="src/styles/app.css" rel="stylesheet" />
-  <link href="src/styles/libs/prism.css" rel="stylesheet">
+  <link href="src/styles/libs/prism.css" rel="stylesheet" /> <!--代码高亮样式-->
+
   <!--[if lt IE 9]>
   <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
   <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 
   <style>
-    html {
-      font-size: 16px;
-    }
-    #nav-ul li {
-      margin: 0.8rem 0;
-    }
-    #nav-ul li a{
-      color: #5cb85c;
-      text-decoration: none;
-    }
   </style>
 </head>
 
-<body>
+<body class="container">
     <header>
-      <h1>Front End Laboratory</h1>
-      <span class="description">前端最佳实践</span>
+        <h1><a href="">Front End Laboratory</a></h1>
     </header>
-	
-	<nav class="" id="nav">
-        <ul class="nav" id="nav-ul">
-          <li class="active">
-            <a href="./docs/">梗概</a>
-          </li>
-          <li>
-            <a href="#html">HTML</a>
-          </li>
-          <li>
-            <a href="#css">CSS</a>
-          </li>
-          <li>
-            <a href="#js">JavaScript</a>
-          </li>
-          <li>
-            <a href="#jquery">jQuery</a>
-          </li>
-          <li>
-            <a href="#vue">Vue</a>
-          </li>
-          <li>
-            <a href="#tools">Tools</a>
-          </li>
-          <li>
-            <a href="#others">Others</a>
-          </li>
-        </ul>
-      </nav>
-	  
-	<section id="content">
-	
-	</section>
-	
+	<section class="row">
+        <nav class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#collapse-target">
+                        <span class="">三</span>
+                    </button>
+                    <p class="navbar-brand">前端最佳实践</p>
+                </div>
+                <div class="collapse navbar-collapse" id="collapse-target">
+                    <ul class="nav" id="nav-ul">
+                        <li class="active"><a href="#README">Summary</a></li>
+                        <li><a href="#html">HTML</a></li>
+                        <li><a href="#css">CSS</a></li>
+                        <li><a href="#javascript">JavaScript</a></li>
+                        <li><a href="#es6">ES6</a></li>
+                        <li><a href="#jquery">jQuery</a></li>
+                        <li><a href="#vue">Vue</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#others">Others</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" id="content">
+        </div>
+    </section>
+
 	<footer class="">
 	
 	</footer>
 	
-    <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/marked/0.3.12/marked.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/1.9.0/prism.min.js"></script>
+    <script src="src/scripts/libs/jquery.min.js"></script>
+    <script src="src/scripts/libs/bootstrap.min.js"></script>
+    <script src="src/scripts/libs/marked.min.js"></script>
+    <script src="src/scripts/libs/prism.min.js"></script>
     <script>
-      $('#nav-ul').on('click',function () {
-          $.get(
-              "./docs/es6.md",function (data) {
+        $('#nav-ul').on(
+            'click',function (event) {
+                //隐藏下拉框
+                if(window.innerWidth<768){
+                    $('#collapse-target').collapse('hide');
+                }
+
+                var url = event.target.getAttribute('href');
+                var source;
+
+                //-1 的Boolean值是True.
+                if (url.search("README")+1) {
+                    source = "./"+url.slice(1)+".md";
+                } else {
+                    source = "./docs/"+url.slice(1)+".md";
+                }
+                $.get(
+                    source,function (data) {
+                        $('#content').html(marked(data));
+
+                        $('#content code').map(function() {
+                            Prism.highlightElement(this);
+                        });
+                    }
+                )
+            }
+        )
+      $(document).ready(function () {
+          $.get("./README.md",function (data) {
                   $('#content').html(marked(data));
 
                   $('#content code').map(function() {
