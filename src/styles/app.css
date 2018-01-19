@@ -39,7 +39,7 @@ header a:hover {
 }
 
 #nav-ul li a{
-    color: #5cb85c;
+    color: black;
     text-decoration: none;
     padding-left: 0;
     background-color: transparent;
@@ -52,6 +52,10 @@ header a:hover {
 
 #nav-ul li a:active {
     background-color: transparent;
+    color: red;
+}
+
+#nav-ul .active {
     color: red;
 }
 
@@ -90,7 +94,7 @@ header a:hover {
 
 #content code {
     color: #a6e22e;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: normal;
     font-family: Consolas,"Courier New",Courier,FreeMono,monospace;
     background: #111;
