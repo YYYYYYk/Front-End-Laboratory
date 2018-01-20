@@ -24,7 +24,7 @@ if (window.XMLHttpRequest) {
 }
 ```
 (2) 绑定事件回调函数：
-xhr对象的readyState属性有5个值，表示请求的活动状态。只要readyState值发生变化就会触发一次readystatechange事件，利用这个事件可检测每次状态变化后的readyState值。
+xhr对象的readyState属性有5个值，表示请求的活动状态。只要readyState值发生变化就会触发一次onreadystatechange事件，利用这个事件可检测每次状态变化后的readyState值。
 - 0 未初始化，未调用`open()`方法初始化。
 - 1 已启动，已调用`open()`方法未`send()`方法。
 - 2 已发送，已调用`send()`方法，未收到数据。
