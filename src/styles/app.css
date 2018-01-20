@@ -92,7 +92,7 @@ header a:hover {
     border-radius: 5px;
 }
 
-#content code {
+#content code{
     color: #a6e22e;
     font-size: 0.8rem;
     font-weight: normal;
@@ -104,7 +104,10 @@ header a:hover {
 #content p code,
 #content li>code,
 #content h2>code,
-#content h3>code{
+#content h3>code,
+#content h4>code,
+#content h5>code{
+  font-size: inherit;
   padding-left: 3px;
   padding-right: 3px;
   color: #c7254e;
@@ -112,13 +115,13 @@ header a:hover {
 }
 
 #content h2 {
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 0px;
 
     padding-top: 20px;
     padding-bottom: 0px;
 
-    font-size: 18px;
+    font-size: 1.6rem;
     text-align: left;
 
     border-top: 2px solid #666;
@@ -131,19 +134,45 @@ header a:hover {
 }
 
 #content h3 {
-    margin-top: 50px;
+    margin-top: 8px;
     margin-bottom: 0px;
 
     padding-top: 20px;
     padding-bottom: 0px;
 
     text-align: left;
-    border-top: 1px dotted #777;
+    border-top: 0;
+
+    font-size: 1.4rem;
 }
 
 #content h2:hover,
 #content h3:hover {
-  color: #ED1C24;
+
+}
+
+#content h4 {
+    margin-top: 6px;
+    margin-bottom: 0px;
+
+    padding-top: 20px;
+    padding-bottom: 0px;
+
+    text-align: left;
+
+    font-size: 1.2rem;
+}
+
+#content h5 {
+    margin-top: 4px;
+    margin-bottom: 0px;
+
+    padding-top: 20px;
+    padding-bottom: 0px;
+
+    text-align: left;
+
+    font-size: 1rem;
 }
 
 #content img {
@@ -160,7 +189,7 @@ header a:hover {
 
 #content ul {
     display: block;
-    list-style-type: none;
+    list-style-type: disc;
 	padding-top: 0.5rem;
 	padding-bottom:0.5rem;
 }
@@ -173,7 +202,7 @@ header a:hover {
 
 
 #content ul li:before {  /* a hack to have dashes as a list style */
-    content: "-";
+    content: "";
     position: relative;
     left: -5px;
 }
