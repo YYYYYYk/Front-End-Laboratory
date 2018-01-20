@@ -1,6 +1,25 @@
-//åˆå§‹åŒ–ä¸»é¡µ
+
+//¼ÆËãÎÄ¼şÕıÈ·µÄurlÖµ.
+function getUrl(url) {
+
+    if(url == ""){
+        return "./README.md";
+    }else if (url.search("README")+1) { // -1 µÄBooleanÖµÊÇTrue.
+        return ("./"+url.slice(1)+".md");
+    } else {
+        return ("./docs/"+url.slice(1)+".md");
+    }
+}
+
+//³õÊ¼»¯Ö÷Ò³
 $(document).ready(function () {
-    $.get("./README.md",
+    //»ñÈ¡ÎÄ¼şUrl
+    var url = getUrl(location.hash);
+
+    //ÎªÓĞlocation.hashÖµµÄ<a>±êÇ©Ìí¼ÓactiveĞ§¹û
+    $("#nav-ul li a[href='"+(location.hash ? location.hash : "#README")+"']").addClass('active');
+
+    $.get(url,
         function (data) {
             $('#content').html(marked(data));
 
@@ -11,33 +30,24 @@ $(document).ready(function () {
     );
 });
 
-//ä¸ºèœå•åˆ—è¡¨ç»‘å®šäº‹ä»¶
+//Îª²Ëµ¥ÁĞ±í°ó¶¨ÊÂ¼ş
 $('#nav-ul').on('click',
     function (event) {
-        //éšè—ä¸‹æ‹‰æ¡†
+        //Òş²ØÏÂÀ­¿ò
         if(window.innerWidth<768){
             $('#collapse-target').collapse('hide');
         }
 
-        //ç§»é™¤æ‰€æœ‰.activeå¹¶æ·»åŠ å¯¹åº”çš„.active
+        //ÒÆ³ıËùÓĞ.active²¢Ìí¼Ó¶ÔÓ¦µÄ.active
         $('#nav-ul li a').removeClass('active');
         $(event.target).addClass('active');
 
-        //è·å–ç›®æ ‡å…ƒç´ çš„hrefå±æ€§å€¼
-        var url = event.target.getAttribute('href'); //==$(event.target).attr('href');
-        var source;
+        //»ñÈ¡Ä¿±êÔªËØµÄhrefÊôĞÔÖµ
+        var url= getUrl(event.target.getAttribute('href'));//==$(event.target).attr('href');
 
-        //è®¡ç®—æ–‡ä»¶æ­£ç¡®çš„urlå€¼.
-        // -1 çš„Booleanå€¼æ˜¯True.
-        if (url.search("README")+1) {
-            source = "./"+url.slice(1)+".md";
-        } else {
-            source = "./docs/"+url.slice(1)+".md";
-        }
-
-        //è·å–åŒæºçš„markdownæ–‡ä»¶å¹¶è§£æ
+        //»ñÈ¡Í¬Ô´µÄmarkdownÎÄ¼ş²¢½âÎö
         $.get(
-            source,function (data) {
+            url,function (data) {
                 $('#content').html(marked(data));
 
                 $('#content code').map(function() {
