@@ -35,7 +35,7 @@ console.log(PI);  //Uncaught ReferenceError: PI is not defined. 参数错误，P
 
 ### const的作用
 
-- 声明定义常量，必须立即初始化，禁止赋值。
+- 声明定义常量，必须立即初始化，禁止未来赋值。
 - 块级作用域，和let一样，const声明的常量也有块级作用域。
 - 没有变量提升，必须在使用之前声明和初始化。
 
@@ -122,7 +122,6 @@ const promise = new Promise(function(resolve, reject) {
 - `.toString()`， 输出`[object Object]`.
 对象转字符串：
 字符串转对象：
-- 
 
 ### ES6新增属性和方法
 
