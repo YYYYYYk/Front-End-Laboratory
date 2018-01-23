@@ -195,7 +195,7 @@ let obj = {[symbol]:1};
 let obj = {};
 Object.defineProperty(obj,symbol,{value: 1});
 ```
-遍历属性名：由于Symbol作为属性名不会出现在for...in和for...of循环中，也不会被Object.key(),Object.getOwnPropertyNames(),JSON.stringify()返回，但是它可用O`bject.getOwnPropertySymbols()`方法返回Symbol属性名数组。
+遍历属性名：由于Symbol作为属性名不会出现在for...in和for...of循环中，也不会被Object.key()，Object.getOwnPropertyNames()，JSON.stringify()返回，但是它可用O`bject.getOwnPropertySymbols()`方法返回Symbol属性名数组。
 
 ```javascript
 let x = Symbol('x');
@@ -221,14 +221,188 @@ const symbolName = Object.getpropertySymbols(symbolObject); // [Symbol(x), Symbo
 - `Symbol.unscopables`
 
 ## `Set`和`Map`数据结构
+### Set数据结构
+Set是ES6新增的数组数据结构，它类似于数组，但成员的值都是唯一的，没有重复的值。通俗讲Set就是没有重复值的数组。
+```javascript
+const set = new Set();
+[1,1,2,2,3,3].forEach(x=>set.add(x));
+for (let x of set){
+    console.log(x); //1,2,3
+}
+console.log(set); // Set [1,2,3] ,size:3 ,<entries>0: 1,1: 2,2: 3 __proto__:Object{}
+console.log([1,2,3]); //Array [1,2,3] ,length:3 , 0:1 ,1:2 ,2:3 __proto__:Array{}
+```
+#### Set属性
+- `Set.prototype.constructor` : Set的原型的构造函数，`Set()`。
+- `Set.prototype.size` : Set实例的成员个数，类似数组的length属性。
+#### Set方法
+- `set.add(value)`:添加某个值，返回原Set。
+- `set.delete(value)`:删除某个值，返回布尔值表示成功与否。
+- `set.has(value)`:检查是否含有value值，返回布尔值。
+- `set.chear()`:清除所用成员。
 
+```javascript
+const set = new Set();
+set.add(1); // Set [1]
+set.add(2); // Set [1,2]
+set.size; //2
+set.has(1); //true
+
+set.delete(1); //true
+set.size; //1
+set.has(1); //false
+
+set.clear();
+set.size;  //0
+```
+#### Set的遍历
+
+### WeakSet数据结构
+WeakSet数据结构与Set类似，WeakSet的成员只能是对象，不能是其他的任何值，其中的对象是弱引用，垃圾回收机制会自动回收WeakSet引用的对象。WeakSet适合存放一组临时对象，只要外部的对象被回收，WeakSet内部的引用也会消失。因此WeakSet不能遍历。
+```javascript
+const  ws = new WeakSet([{x:1},{y:2},{z:3}]); //构造函数传参需要用数组结构
+```
+#### WeakSet的属性和方法：
+- `WeakSet.prototype.constructor` : WeakSet的原型的构造函数，`WeakSet()`。WeakSet没有size属性。
+- `ws.add(object)`:添加某个值，返回原WeakSet。
+- `ws.delete(object)`:删除某个值，返回布尔值表示成功与否。
+- `ws.has(object)`:检查是否含有value值，返回布尔值。
+
+```javascript
+const  ws = new WeakSet([{0:1},[2,3]]); 
+ws.add({4:5}); // [[],[],[]]<entries> 0: Array [ … ], 1: Object [ … ], 2: Object [ … ], __proto__:Object{}
+ws.has({4:5}); //true
+ws.delete({4:5}); //true
+```
+### Map数据结构
+Map是ES6新增的对象数据结构，它类似于对象，即键值对`Key-Value`的集合（Hash结构），但它的键不限于字符串，各种类型的值(包括Object对象)都能作为键。由原有的`Key-Value`键值对拓展为`Value-Value`值值对。
+#### Map实例的属性
+- `map.size`:返回map实例的成员数目。
+- `map.constructor`:返回map实例的构造函数。
+#### Map
+- `map.set(key,value)`:插入键值对,返回新的Map实例。
+- `map.get(key)`:通过键获取对应的值。
+- `map.has(key)`:检测某个键是否在map实例中，返回布尔值。
+- `map.delete(key)`:删除某个键，返回成功与否的布尔值。
+- `map.clear()`:清除所有成员，不返回值。
+
+```javascript
+const m= new Map();
+m.set(123,456); // Map { 123 → 456 }
+m.set([1,2],{3:4});  // Map { 123 → 456, Array [ … ] → Object [ … ] }
+m.size; //2
+
+let regexp = new RegExp(/abc/g);
+m.set(regexp,{reg:'exp'}); //Map { 123 → 456, […] → […], /abc/g → {…} }
+m.size; //3
+
+m.get(regexp);// Object { reg: "exp" }
+m.has(regexp); //true
+m.delete(regexp); //true
+m.size; //2
+m.clear();
+m.size; //0
+```
+
+#### Map的遍历
+Map实例的遍历需要结合`for...of`循环，Map实例的遍历顺序就是插入顺序。
+- `map.keys()`:返回键名。
+- `map.values()`:返回键值。
+- `map.entries()`:返回所有成员。
+- `map.forEach()`:遍历map所有成员。
+
+```javascript
+const map = new Map();
+
+for (let key of map.keys()){
+    console.log(key);
+}
+
+for(let value of map.value()){
+    console.log(value);
+}
+
+for (let item of map.entries()){
+    console.log(item[0]+':'+item[1]);
+}
+
+map.forEach(function(value, key, map) {
+  console.log("Key: %s, Value: %s", key, value);
+});
+```
+- Map与数组互转：
+
+```javascript
+//Map转为数组
+const map = new Map([[1,2],[3,4]]); //构造函数传参需要用数组结构
+
+let mapKeys = [...map.keys()]; //Array [ 1, 3 ]
+let mapValue = [...map.values()]; //Array [ 2, 4 ]
+let mapEntries = [...map.entries()]; //Array [ [ 1, 2 ], [ 3, 4 ] ]
+```
+- Map与对象互转：
+Map转为对象：(需要键名为字符串)
+- Map与JSON互转：
+### WeakMap数据结构
+#### WeakMap与Map类似，也是用于生成键值对集合，其特点是
+1. 只接受除null之外的键名。讲字符串，数值，Symbol作为键名插入会报错。
+2. WeakMap键名所指的对象，不计入垃圾回收机制。它的键名所弱引用的对象，将来会随对象自动消失，能有效防止内存泄漏。
+```javascript
+const wm = new WeakMap();
+let obj = {a:1};
+wm.set(obj,'this is obj');  //WeakMap { {…} → 'this is obj' }
+wm.get(obj); //'this is obj'
+wm.delete(obj); //true
+wm.has(obj); //false
+
+wm.set(obj,'this is obj');//WeakMap { {…} → 'this is obj' }
+obj = null;
+wm.has(obj); //false
+```
+#### WeakMapde的用法实例
+以DOM节点作为键名，键名随DOM节点删除，不存在内存泄漏风险。
+```javascript
+let myElement = document.getElementById('logo');
+let myWeakmap = new WeakMap();
+
+myWeakmap.set(myElement, {timesClicked: 0});
+
+myElement.addEventListener('click', function() {
+  let logoData = myWeakmap.get(myElement);
+  logoData.timesClicked++;
+}, false);
+
+```
 ## `Iterator`和`For-of`循环
+### Iterator遍历器
+JavaScript现有4种‘集合’的数据结构：`Array`，`Object`，`Set`和`Map`。Iterator是一种完成遍历操作的接口，为不同的数据结构提供统一的访问机制。
+它的作用有：一、为各种数据结构提供统一简便的接口；二、使得数据结构的成员能够按照某种次序排列；三、创造了一种新的遍历命令`for...of`循环。
+
+原生具备Iterator接口的数据结构有(能直接用`for...of`)：
+- Array
+- Map
+- Set
+- String
+- arguments对象(Function内部对象)
+- NodeList对象
+- Object.keys(obj),(Object不具备Iterator接口，需要将对象转换为键名数组来遍历，遍历对象推荐用for-in)
+
+### `for...of`循环
+`for...of`循环是遍历所有数据结构统一的方法。一个数据结构只要部署了Symbol.iterator属性，就会被视为具有iterator接口，就能用for...of循环遍历它的成员。
+
+`for...of`循环可使用的范围包括数组，对象，Set，Map结构，arguments对象，DOM Nodelist对象，Generator对象以及字符串。
+### `for...in`与`for...of`的区别
+
+- for-in是为遍历对象值而设计的，它会遍历对象的键名，包括数组的索引[0,1,2,3...]。for-in会遍历手动创建的其他键名，包括原型链上的键，而且会以任意顺序遍历键名。中途不能跳出循环。
+- for-of是基于Iterator接口的，它能遍历包括数组，对象，Set，Map，arguments等等几乎所有有Iterator的数据结构。其遍历按照顺序输出。for-of能用break语句跳出循环，for-in不能跳出循环。for-of还能与continue和return配合使用。
+- 遍历数组时，for-in输出数组的索引，for-of输出数组的值。
+- 遍历对象时，for-in输出对象的键名，for-of不能直接遍历普通对象，需要借助Object.keys(obj)将生成键名数组，然后遍历这个数组输出对象键名和键值。
 
 ## `Class`与继承
 
 ## `Module`模块
 
-## `Promise`对象
+## `Promise`(承诺)对象
 
 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了`Promise`对象。
 
@@ -236,7 +410,7 @@ Promise 是异步编程的一种解决方案，比传统的解决方案——回
 
 `Promise`对象有以下两个特点。
 
-（1）对象的状态不受外界影响。`Promise`对象代表一个异步操作，有三种状态：`pending`（进行中）、`fulfilled`（已成功）和`rejected`（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是`Promise`这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。
+（1）对象的状态不受外界影响。`Promise`对象代表一个异步操作，有三种状态：**`pending`（进行中）、`fulfilled`（已成功）和`rejected`（已失败）**。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是`Promise`这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。
 
 （2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。`Promise`对象的状态改变，只有两种可能：从`pending`变为`fulfilled`和从`pending`变为`rejected`。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（已定型）。如果改变已经发生了，你再对`Promise`对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
 
@@ -248,6 +422,8 @@ Promise 是异步编程的一种解决方案，比传统的解决方案——回
 
 如果某些事件不断地反复发生，一般来说，使用 [Stream](https://nodejs.org/api/stream.html) 模式是比部署`Promise`更好的选择。
 
+### 基本用法
+Promise对象是一个构造函数，用来生成Promise实例。
 ```javascript
 const promise = new Promise(function(resolve, reject) {
   // ... some code
@@ -259,6 +435,34 @@ const promise = new Promise(function(resolve, reject) {
   }
 });
 ```
+### Promise对象的方法
+### Promise对象的作用
+- 链式回调异步操作
+
+```javascript
+//ES5链式回掉setTimeout()函数的代码非常难懂
+setTimeout(function(){
+  left(function(){
+    setTimeout(function(){
+       left(function(){
+         setTimeout(function(){
+           left();
+         },2000);
+       });
+    }, 2000);
+  });
+}, 2000);
+
+//采用Promise对象后
+var promise = new Promise((resolve, reject)=>{
+  setTimeout(resolve,2000);
+});
+promise.then(()=>setTimeout(null,2000);)
+.then(()=>setTimeout(null,2000);)
+.catch();
+```
+
+- 传递状态，改变状态
 
 ## `Generator`生成器函数
 
@@ -272,8 +476,6 @@ const promise = new Promise(function(resolve, reject) {
 
 ### ES5原生属性和方法
 - `.toString()`， 输出`[object Object]`.
-对象转字符串：
-字符串转对象：
 
 ### ES6新增属性和方法
 
