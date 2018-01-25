@@ -12,6 +12,15 @@
 }
 console.log(a); //Uncaught ReferenceError: a is not defined. 参数错误，a没有定义。
 console.log(b); //2
+
+//let不能重复声明，而var无限制
+let y = 1; // y==1
+let y; // SyntaxError: Identifier 'y' has already been declared
+let y = 2; // SyntaxError: Identifier 'y' has already been declared
+
+var x = 1;  //x==1
+var x;  // x==1
+var x = 2; // x==2
 ```
 解释：变量a用`let`命令在块级作用域`{}`中声明，外部无法读取内部的内容。
 
@@ -20,6 +29,7 @@ console.log(b); //2
 - 块级作用域，防止变量污染全局。在`if(){}`，`for(){}`，`do{}while()`中let 声明的变量具有块级作用域。
 - 移除变量提升，用`let`声明的变量必须在使用前声明，否则会报错而不是undefined。
 - 移除顶层对象，过去顶层对象`window`和全局对象是等价的，而用let声明的对象`a`无法用`window.a`调用。
+- 禁用重复声明,let声明的变量名不得重复声明，var没有此限制。
 
 ### const基本用法
 const声明一个只读的常量。一旦声明，常量的值就不能改变，而且const一旦声明就必须立即初始化，不能留到以后赋值。
