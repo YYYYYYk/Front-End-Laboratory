@@ -1,7 +1,7 @@
 # 前端最佳实践
 
-本站总结了前端的重要知识点以及最佳实践方案，涵盖了HTML+CSS+JavaScript(ES5)+ES6/7+jQuery+Vue+React+Angular等等。
-本站内容通俗易懂，但需要读者具备基本计算机知识或者初级前端基础。
+本站总结了前端的最基础，最重要知识点以及最佳实践方案，涵盖了HTML+CSS+JavaScript(ES5)+ES6/7+jQuery+Vue+React+Angular等等。
+本站内容通俗易懂，但需要读者具备一定的初级前端基础。
 
 ## 内容
 
