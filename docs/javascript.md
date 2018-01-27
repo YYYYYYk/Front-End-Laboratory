@@ -54,21 +54,39 @@ m.toFixed(4); //'20.0000'
 ##### 原生函数
 - `.substring[from,to)`:从索引位置提取字符串，返回新字符串，必须是非负整数作参数。
 - `.substr(start,length)`:从索引起始位置，按指定数目提取字符串，返回新字符串。
-- `.concat(string)`:合并返回新字符串。
+- `.concat(string1,string2)`:合并字符串，返回新字符串。
 - `.slice[start,end)`:从索引位置提取字符串，返回新字符串。支持负数为参数，-1指最后一个字符，-2指倒数第二个字符。
 - `.indexOf(string)`:返回指定字符串第一次出现的索引位置。
-- `.lastIndexOf()`:从尾部搜索字符串，返回指定字符串第一次出现的索引位置（原索引值的方向）。
+- `.lastIndexOf(string)`:从尾部搜索字符串，返回指定字符串第一次出现的索引位置（原索引值的方向）。
 - `.charAt(index)`:返回指定索引位置的字符。
 - `.toUpperCase()`:将字符串转换为大写，返回新字符串。
 - `.toLowerCase()`:将字符串转换为小写，返回新字符串。
 - `.valueOf()`:返回原始值。
 
+```javascript
+let str = '0123abc';
+console.log(str.substring(1,2)+'||'+str); //1||0123abc
+console.log(str.substr(1,2)+'||'+str); //12||0123abc
+console.log(str.concat(str)+'||'+str); //0123abc0123abc||0123abc
+console.log(str.slice[2,-1)+'||'+str); //23ab||0123abc
+console.log(str.indexOf('a')+'||'+str); //4||0123abc
+console.log(str.concat(str).lastIndexOf('a')+'||'+str); // 11||0123abc
+console.log(str.charAt(3)+'||'+str); //3||0123abc
+console.log(str.toUpperCase()+'||'+str); //0123ABC||0123abc
+console.log(str.toLowerCase()+'||'+str); //0123abc||0123abc
+console.log(str.valueOf()); //0123abc
+```
 ##### 支持正则表达式的函数：
 - `.search(RegExp||string)`:匹配字符串，返回第一个匹配项的位置。若参数为字符串，则与indexOf()函数无异。
 - `.replace(RegExp||string1,string2)`:匹配字符串，用string2取代匹配项，并返回新字符串。
 - `.split(RegExp||string)`:匹配字符串，用匹配项来分割字符串，返回分割后的新字符串数组。
 - `.match(RegExp)`:匹配字符串，返回所有匹配项，组成新字符串数组。**str.match()只支持RegExp作参数！**
 
+```javascript
+let str = '0123abc0123abc';
+let reg = /a/;
+
+```
 
 #### Boolean
 #### Null
@@ -83,36 +101,80 @@ m.toFixed(4); //'20.0000'
 #### Array数组
 
 ##### 特性
+- length：它的长度等于键名最大的整数+1，中间允许空键值，获取空键值时为undefined。length是动态的，可写的，当用户给length赋值时，会删除超出范围的键值。若删除数组，将length赋值为0即可。
+- for...in循环：遍历数组的键名，但也会遍历数组的额外属性和继承的属性。不推荐使用for...in遍历数组，推荐使用for或while循环。
+- in运算符：可用于检查某个包含键值的键名（索引）是否存在于数组中。用法类似于对象。
+
 ##### 原生属性和函数
-- `.constructor`:
-- `.length`:
-- `.prototype`:
+- `.constructor`:返回数组实例的构造函数。
+- `.length`:设置或返回数组键名的个数。
+- `Array.prototype`:数组构造函数的原型，添加的属性可用于数组实例。
+
 常用
-- `.push(ele)`:从尾部添加元素。
-- `.pop(ele)`:从尾部删除元素。
-- `.shift(ele)`:从头部删除并返回删除的元素。
-- `.unshift(ele)`:从头部添加元素并返回长度。
+- `.push(ele)`:从尾部添加元素，返回新长度。
+- `.pop(ele)`:从尾部删除元素,返回删除的元素。
+- `.shift(ele)`:从头部删除,返回删除的元素。
+- `.unshift(ele)`:从头部添加元素,返回新长度。
+- `.concat(arr2,arr3)`:合并一个或多个数组,返回新数组。
 - `.splice(index,length,ele1,ele2,...)`:从索引位置删除或添加新元素。
 - `.reverse()`:反转并返回原数组。
 - `.indexOf()`:搜索元素并返回位置。
 - `.valueOf()`:获取原始值。
-- `.join()`:把数组所有元素装转换成字符串。
+- `.join()`:把数组所有元素转换成字符串。
 - `.fill('value',start,end)`:将value填充到start和end之前的位置。
+- `.copyWithin(target,start,end)`:向目标位置复制指定范围内的元素。
 
+```javascript
+let array = [];
+
+```
 支持高阶函数
-- `.forEach()`:
-- `.find(function)`:
-- `.every()`:
-- `.filter()`:
-- `.map()`:
-- `.reduce()`:
-- `.sort()`:
+- `.forEach(function(value,index,array),this)`:调用数组的每个元素(必须)，索引和原数组传递给回调函数。
+- `.find(f(i))`:为每个元素执行函数，若返回值为true则返回该元素而结束，若为false，返回undefined。
+- `.findIndex(f(i))`:为每个元素执行函数，若返回值为true则返回该元素的索引而结束，若为false，则返回-1。
+- `.every(f(i))`:为每个元素执行函数，若**所有**的返回值为true则返回true，若只要有一个返回false，则返回false，不再检测。
+- `.filter(f(i))`:为每个元素执行函数，返回**所有**返回值为true的元素的新数组。
+- `.map(f(i))`:按顺序为每个元素执行函数来处理，返回处理后的值并填入新数组中，最后返回新数组。
+- `.reduce(function(total,num))`:接受一个函数作为累加器，先将将前两个值传入回掉函数运算，返回的结果与下一个值的再传入回调函数运算，直到算到最后一个为止，返回最终计算的值。若数组没有空值，则总共回调length-1次。
+- `.sort()`:对数组元素进行排序，返回排序后的**原数组**。若为字母数组，则按升序排序，想降序再用reverse()函数。若是数字数组，无参则默认按照第一个数字字符排序，如40比5小。以函数为参数时，可指定数字按照升序还是降序排序。**注意！这会改变原数组**
+
 ```javascript
 let array = [8,6,4,2,0];
 array.sort((a,b)=>a-b); //
 ```
 
 #### Date
+Date用于处理日期与时间。
+创建日期对象有四中方法：
+```javascript
+let date = new Date(); 
+let date = new Date(milliseconds);
+let date = new Date(datestring);
+let date = new Date(year,month,day,hours,minutes,seconds,milliseconds);
+```
+##### 原生属性
+- `.constructor`:返回Date函数的引用。
+- `Date.prototype`:返回Date函数的原型，可向Date原型添加属性和方法。
+
+##### 原生函数
+- `.getFullYear()`:返回年份。对应.getUTCFullYear()和.setFullYear(year);
+- `.getMonth()`:返回月份**(0~11)**。对应.getUTCMonth()和.setMonth(month);
+- `.getDate()`:返回**一个月中**的某一天(1~31)。对应.getUTCDate()和.setDate(date);
+- `.getDay`:返回**一周中**的某一天(0~6)。对应.getUTCDay();
+- `.getHours()`:返回小时数(0~23)。对应.getUTCHours()和.setHours(hour);
+- `.getMinutes()`:返回分钟数(0~59)。对应.getUTCMinutes()和setMinutes(minute);
+- `.getSeconds()`:返回秒数(0~59)。对应.getUTCSeconds()和setSeconds(second);
+- `.getMilliseconds()`:对应.getUTCMilliseconds()和.setMilliseconds(millisecond);
+- `.getTime()`:返回1970-1-1至今的毫秒数。
+- `Date.parse()`:返回1970-1-1-0:0:0到指定日期(字符串)的的毫秒数。
+- `.toDateString()`:把 Date 对象的日期部分转换为字符串。
+- `.toISOString()`:使用 ISO 标准返回字符串的日期格式。
+- `.toJSON()`:以 JSON 格式返回日期字符串。
+- `.toString()`:把Date对象转换成字符串。
+- `.toUTCString()`:根据世界时，把Date对象转换成字符串。
+- `.UTC(1234,5,6)`:根据世界时，返回1970-1-1到指定日期的毫秒数。
+- `.valueOf()`:返回Date对象的原始值。
+
 #### RegExp
 #### Math
 
@@ -126,7 +188,7 @@ array.sort((a,b)=>a-b); //
 
 ## 事件
 ### 事件流
-事件流分为事件捕获，事件处理，事件冒泡。在W3C标准中
+事件流分为事件捕获，事件处理，事件冒泡三个阶段。在W3C标准中：
 1. 事件捕获是指事件在DOM树上从根元素到子孙元素，由上向下进行传播，即`document->html->body->section->...->div`。
 2. 事件处理指当某个事件通过事件捕获或事件冒泡传递到某个对象上时，如果该对象绑定了事件监听函数，则执行该函数处理事件。事件监听函数分为捕获和冒泡，分别指定函数要响应事件捕获还是事件冒泡，默认是事件冒泡。
 3. 事件冒泡是指事件在DOM树上从子孙元素到根元素，由下向上进行传播，即`div->...->section->body->html->document`，正好与事件捕获相反。
