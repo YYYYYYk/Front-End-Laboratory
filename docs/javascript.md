@@ -158,7 +158,7 @@ let date = new Date(year,month,day,hours,minutes,seconds,milliseconds);
 
 ##### 原生函数
 - `.getFullYear()`:返回年份。对应.getUTCFullYear()和.setFullYear(year);
-- `.getMonth()`:返回月份**(0~11)**。对应.getUTCMonth()和.setMonth(month);
+- `.getMonth()`:返回月份`(0~11)`。对应.getUTCMonth()和.setMonth(month);
 - `.getDate()`:返回**一个月中**的某一天(1~31)。对应.getUTCDate()和.setDate(date);
 - `.getDay`:返回**一周中**的某一天(0~6)。对应.getUTCDay();
 - `.getHours()`:返回小时数(0~23)。对应.getUTCHours()和.setHours(hour);
