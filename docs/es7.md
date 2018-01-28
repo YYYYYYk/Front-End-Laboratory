@@ -1,4 +1,4 @@
-# ECMAScript7
+# ECMAScript 7
 
 ## `Array.prototype.includes()`
 
