@@ -1,4 +1,4 @@
-# ECMAScript6
+# ECMAScript 6
 
 ## `let`和`const`命令
 ### let基本用法
