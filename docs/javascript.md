@@ -89,6 +89,35 @@ let reg = /a/;
 ```
 
 #### Boolean
+##### Truthy 真值
+在JavaScript中，Truthy(真值)指的是在Boolean上下文中转换后的值为真的值。所有值都是真值，除非它们被定义为 falsy (即， 除了false，0，“”，null，undefined和NaN 外)。JavaScript 在Boolean上下文中使用强制类型转换（coercion）。
+JavaScript中的真值示例如下（将被转换为true类型，if 后的代码段将被执行）：
+```javascript
+if (true)
+if ({})
+if ([])
+if (42)
+if ("foo")
+if (new Date())
+if (-42)
+if (3.14)
+if (-3.14)
+if (Infinity)
+if (-Infinity)
+```
+
+##### Falsy 假值
+Falsy是在 Boolean 上下文中认定可转换为false的值.JavaScript 在需要用到布尔类型值的上下文中使用强制类型转换（Type Conversion ）将值转换为布尔值，比如：在条件语句或者循环语句中。
+JavaScript中falsy值的例子 (将falsy值转换为false):
+```javascript
+if (false)
+if (null)
+if (undefined)
+if (0)
+if (NaN)
+if ('')
+if ("")
+```
 #### Null
 #### Undefined
 #### Object
@@ -195,6 +224,36 @@ let date = new Date(year,month,day,hours,minutes,seconds,milliseconds);
 
 看图：
 ### 事件对象
+####属性
+- 常量`CAPTURING-PHASE`:
+- 常量`AT-TARGET`:
+- 常量`BUBBLING-PHASE`:
+- 属性`target`:
+- 属性`type`:
+- 属性`bubbles`:
+- 属性`cancelable`:
+####方法
+
+###目标事件对象
+
+###事件监听对象
+
+###文档事件对象
+
+###鼠标/键盘事件对象
+
+###DOM事件
+####鼠标事件
+####键盘事件
+####框架/对象事件
+####表单事件
+####剪贴板事件
+####打印事件
+####拖动事件
+####多媒体事件
+####动画事件
+####其他事件
+
 ### 事件代理/委托
 
 ## Ajax-异步JavaScript和XML
