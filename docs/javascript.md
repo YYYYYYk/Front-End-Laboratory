@@ -97,9 +97,9 @@ if (true)
 if ({})
 if ([])
 if (42)
+if (-42)
 if ("foo")
 if (new Date())
-if (-42)
 if (3.14)
 if (-3.14)
 if (Infinity)
@@ -310,3 +310,11 @@ xhr.send(null); //参数仅用于POST请求
 
 ## 内存泄漏
 
+## 深拷贝与浅拷贝
+### 递归算法
+
+### JSON：
+`OB = JSON.parse( JSON.stringify(OA) );`
+
+- 优点：简单高效，适用大多数情况。
+- 缺点：无法复制函数，原型链断裂，对象变为Object，所属类消失。
