@@ -16,7 +16,5 @@
     "url": "https://github.com/iFiring/Front-End-Laboratory/issues"
   },
   "homepage": "https://github.com/iFiring/Front-End-Laboratory#readme",
-  "devDependencies": {
-    "gulp": "^3.9.1"
-  }
+  "devDependencies": {}
 }
